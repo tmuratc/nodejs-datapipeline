@@ -1,0 +1,39 @@
+{
+  "name": "data-pipeline",
+  "version": "1.0.0",
+  "description": "Node.js Backend Data Pipeline GCP Project ",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmuratcamli/datapipeline-nodejs-gcp.git"
+  },
+  "keywords": [
+    "datapipeline",
+    "nodejs",
+    "pub/sub",
+    "dataflow",
+    "googlecloud"
+  ],
+  "author": "Talha Murat Camli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmuratcamli/datapipeline-nodejs-gcp/issues"
+  },
+  "homepage": "https://github.com/tmuratcamli/datapipeline-nodejs-gcp#readme",
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.9.0",
+    "@google-cloud/pubsub": "^4.5.0",
+    "ajv": "^8.17.1",
+    "async-mutex": "^0.5.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
