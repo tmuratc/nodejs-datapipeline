@@ -25,7 +25,7 @@ To clone repo
 `git clone https://github.com/tmuratcamli/datapipeline-nodejs-gcp.git`
 To run app 
 `npm start`
-update .env file file corresponding values. 
+update .env file with corresponding values. 
 
 ### POST REQUEST 
 ![image](https://github.com/user-attachments/assets/663eec59-9fc2-4c7d-916a-54d90bbe3feb)
