@@ -1,0 +1,13 @@
+GCP_PROJECT_ID = "gcp-project-id"
+GCP_CREDENTIALS_KEY_PATH = "path-to-credential.json-of-service-account"
+TOPIC_NAME = "pubsub-topic-name"
+BQ_TABLE = "BigQuery-Table"
+BQ_DATASET = "BigQuery-Dataset" 
+BATCH_SIZE = 1000 
+MAX_BATCH_SIZE = 1000
+BATCH_DIVISION = 4
+BACKOFF_BASE_DELAY_MS =  1000
+MAX_BACKOFF_DELAY_MS = 60000
+MAX_RETRY = 3
+
+PORT = 3000 
