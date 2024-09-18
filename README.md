@@ -5,7 +5,7 @@ This is a Node.js express app as a data pipeline backend web service. It will de
  - Service is designed to have data life cycle as;
    - Post Request(./logs) -> Pub/Sub -> BigQuery Table -> Get Request (./analytics)
 
-However there is no setup configuration for GCP services in the repository. Therefore following following prerequisites are required.
+However there is no setup configuration for GCP services in the repository. Therefore following prerequisites are required.
 
 ## Prerequisites
  - BigQuery Table
@@ -13,7 +13,6 @@ However there is no setup configuration for GCP services in the repository. Ther
  - Service Account with following roles;
    - BigQuery Data Editor
    - BigQuery Data Transfer Service Agent
-   - Dataflow Admin
    - Pub/Sub Admin
    - Key Json file
    
