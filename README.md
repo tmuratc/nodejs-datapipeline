@@ -1,31 +1,37 @@
+# Node.js Express API for Publishing Logs to Pub/Sub and Querying BQ
+
 ## Description
 This is a Node.js express app as a data pipeline backend web service. It will designed to response following;
- - Post Request will paste json event logs to BigQuery table.
+ - Post Request will paste json logs to BigQuery table.
  - Get Request will return a summary result from BigQuery table.
  - Service is designed to have data life cycle as;
-   - Post Request(./logs) -> Pub/Sub -> BigQuery Table -> Get Request (./analytics)
+   - Post Request-> Pub/Sub -> BigQuery Table -> Get Request
 
-However there is no setup configuration for GCP services in the repository. Therefore following prerequisites are required.
+However there is no setup configuration for GCP services in the repository. Therefore following prerequisites must be created in GCP.
 
 ## Prerequisites
  - BigQuery Table
  - Pub/Sub Topic
- - Service Account with following roles;
+ - Key Json file for service account that has following roles;
    - BigQuery Data Editor
    - BigQuery Data Transfer Service Agent
    - Pub/Sub Admin
-   - Key Json file
+ 
    
 Note: To get complete data life cycle data proccessing operation (from Pub/Sub to BQ) must be set. Code doesn't provide it. 
 
-## Usage 
+## Installation - Local Windows Environment
+To start this application in your local environment run following commands;
 
-To clone this repo 
+### 1. Start Docker Desktop application. 
+If you don't have click [here](https://docs.docker.com/desktop/install/windows-install/) to install.
+
+### 2. Clone this repo.  
 ```bash
 git clone https://github.com/tmuratcamli/datapipeline-nodejs-gcp.git
 ````
 
-Update .env file with corresponding values. 
+### 3. Update .env file with corresponding values. 
 ```bash
 GCP_PROJECT_ID = "gcp-project-id"
 GCP_CREDENTIALS_KEY_PATH = "path-to-credential.json-of-service-account"
@@ -42,9 +48,14 @@ MAX_RETRY = 3
 PORT = 3000
 ````
 
-To run app in project directory
+### 4. Build the Docker image
 ```bash
-npm start
+docker build -t your-app-name  . 
+````
+
+### 5. Run the Docker container
+```bash
+docker run -p 3000:3000 your-app-name
 ````
 
 
