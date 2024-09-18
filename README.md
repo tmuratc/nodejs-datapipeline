@@ -3,7 +3,7 @@
 
 ## Description
 This is a Node.js express app as a data pipeline backend web service. It is designed to response following;
- - Post Request will paste json logs to BigQuery table.
+ - It takes JSON logs by Post Request and publishes to Pub/Sub.
  - Get Request will return a summary result from BigQuery table.
  - Service is designed to have data life cycle as;
  - Post Request-> Pub/Sub -> BigQuery Table -> Get Request
@@ -58,7 +58,7 @@ There is no setup configuration for GCP services in the repository. Therefore fo
    - BigQuery Data Transfer Service Agent
    - Pub/Sub Admin 
 
-To get complete data life cycle data proccessing operation (from Pub/Sub to BQ) must be set. Code doesn't provide it.
+To get complete data life cycle, data operation (from Pub/Sub to BQ) must be set. Code doesn't provide it.
 
 ### Log Schema  
 API is designed to accept and publish JSON logs with a specified schema that is defined in ./models/schema.json file.   
