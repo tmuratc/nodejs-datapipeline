@@ -2,7 +2,7 @@
 ![Architecture Diagram](./architecture-diagram.png)
 
 ## Description
-This is a Node.js express app as a data pipeline backend web service. It will designed to response following;
+This is a Node.js express app as a data pipeline backend web service. It is designed to response following;
  - Post Request will paste json logs to BigQuery table.
  - Get Request will return a summary result from BigQuery table.
  - Service is designed to have data life cycle as;
