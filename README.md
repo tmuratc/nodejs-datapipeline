@@ -6,26 +6,14 @@ This is a Node.js express app as a data pipeline backend web service. It will de
  - Post Request will paste json logs to BigQuery table.
  - Get Request will return a summary result from BigQuery table.
  - Service is designed to have data life cycle as;
-   - Post Request-> Pub/Sub -> BigQuery Table -> Get Request
+ - Post Request-> Pub/Sub -> BigQuery Table -> Get Request
 
-However there is no setup configuration for GCP services in the repository. Therefore following prerequisites must be created in GCP.
-
-## Prerequisites
- - BigQuery Table
- - Pub/Sub Topic
- - Key Json file for service account that has following roles;
-   - BigQuery Data Editor
-   - BigQuery Data Transfer Service Agent
-   - Pub/Sub Admin
- 
-   
-Note: To get complete data life cycle data proccessing operation (from Pub/Sub to BQ) must be set. Code doesn't provide it. 
 
 ## Installation - Local Windows Environment
 To start this application in your local environment run following commands;
 
 ### 1. Start Docker Desktop application. 
-If you don't have click [here](https://docs.docker.com/desktop/install/windows-install/) to install.
+If you don't have Docker Desktop click [here](https://docs.docker.com/desktop/install/windows-install/) to install.
 
 ### 2. Clone this repo.  
 ```bash
@@ -59,37 +47,40 @@ docker build -t your-app-name  .
 docker run -p 3000:3000 your-app-name
 ````
 
+## USAGE 
 
-### POST REQUEST 
-- Service is designed to handle high traffic without single loss of logs. 
-- Approach: Server keeps 3 different arrays to handle logs; logQueue, failedLogs, persistentFailures. 
-- Functionality of each middleware in order ;
+### Prerequisites
+There is no setup configuration for GCP services in the repository. Therefore following prerequisites must be created in GCP.
+ - BigQuery Table
+ - Pub/Sub Topic
+ - Key Json file for service account that has following roles;
+   - BigQuery Data Editor
+   - BigQuery Data Transfer Service Agent
+   - Pub/Sub Admin 
 
-#### validateSchema
-- Reqeust.body objects are compiled to compare defined schema in ./models/schema.json.
-- Object's schema atrribute is set. 
+To get complete data life cycle data proccessing operation (from Pub/Sub to BQ) must be set. Code doesn't provide it.
 
-#### addToQueue
- - Matched logs are pushed to logQueue.
-
-#### initialBulkPublish
- - Publishing bulk with first N elements of logQueue. 
- - To set size -> .env BATCH_SIZE 
- - Failed batches are pushed to failedLogs array.
-
-#### handleFails
- - PublishİNG bulk with smaller batch sizes. 
- - To set ratio -> .env BATCH_SIZE_DIVISION  
- - Failed batches are pushed to persistenFailures.
-
-#### handlePersistentFails;
- - Publishing bulk with backoff and retry mechanism.
- - To set -> .env MAX_BATCH_SIZE, BACKOFF_BASE_DELAY, MAX_BACKOFF_DELAY, MAX_RETRY
- - Failed logs stay in the array.
-
-
-## GET REQUEST
-- Running the defined queries in ./scripts/getQueries as BigQuery client.
+### Log Schema  
+API is designed to accept and publish JSON logs with a specified schema that is defined in ./models/schema.json file.   
+```bash
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Log Schema",
+    "type": "object",
+    "properties": {
+      "type": { "type": "string"},
+      "session_id": { "type": "string"},
+      "event_name": { "type": "string"},
+      "event_time": { "type": "number"},
+      "page": { "type": "string"},
+      "country" : {"type": "string"},
+      "region": { "type": "string"},
+      "city": { "type": "string"},
+      "user_id": { "type": "string"}
+    },
+    "required": ["type", "session_id", "event_name", "event_time", "user_id"]
+  }
+```
 
 ## NOTES
 - As it is said before this project doesn't provide data proccesing for from Pub/Sub to BQ operation. 
