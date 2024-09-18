@@ -1,5 +1,5 @@
 # Node.js Express API for Publishing Logs to Pub/Sub and Querying BQ
-
+![Architecture Diagram](./architecture-diagram.png)
 
 ## Description
 This is a Node.js express app as a data pipeline backend web service. It will designed to response following;
