@@ -19,13 +19,30 @@ However there is no setup configuration for GCP services in the repository. Ther
 Note: To get complete data life cycle data proccessing operation (from Pub/Sub to BQ) must be set. Code doesn't provide it. 
 
 ## Usage 
+
 To clone this repo 
 ```bash
 git clone https://github.com/tmuratcamli/datapipeline-nodejs-gcp.git
 ````
-Update .env file with corresponding values. 
 
-To run app 
+Update .env file with corresponding values. 
+```bash
+GCP_PROJECT_ID = "gcp-project-id"
+GCP_CREDENTIALS_KEY_PATH = "path-to-credential.json-of-service-account"
+TOPIC_NAME = "pubsub-topic-name"
+BQ_TABLE = "BigQuery-Table"
+BQ_DATASET = "BigQuery-Dataset" 
+BATCH_SIZE = 1000 
+MAX_BATCH_SIZE = 1000
+BATCH_DIVISION = 4
+BACKOFF_BASE_DELAY_MS =  1000
+MAX_BACKOFF_DELAY_MS = 60000
+MAX_RETRY = 3
+
+PORT = 3000
+````
+
+To run app in project directory
 ```bash
 npm start
 ````
@@ -38,17 +55,19 @@ npm start
 
 #### validateSchema
 - Reqeust.body objects are compiled to compare defined schema in ./models/schema.json.
-- The mismatched schemas are not added to logQueue. 
+- Object's schema atrribute is set. 
 
 #### addToQueue
  - Matched logs are pushed to logQueue.
 
 #### initialBulkPublish
- - Publishing bulk with first N elements of logQueue. To set size -> .env BATCH_SIZE 
+ - Publishing bulk with first N elements of logQueue. 
+ - To set size -> .env BATCH_SIZE 
  - Failed batches are pushed to failedLogs array.
 
 #### handleFails
- - PublishİNG bulk with smaller batch sizes. To set ratio -> .env BATCH_SIZE_DIVISION  
+ - PublishİNG bulk with smaller batch sizes. 
+ - To set ratio -> .env BATCH_SIZE_DIVISION  
  - Failed batches are pushed to persistenFailures.
 
 #### handlePersistentFails;
@@ -62,5 +81,5 @@ npm start
 
 ## NOTES
 - As it is said before this project doesn't provide data proccesing for from Pub/Sub to BQ operation. 
-- To get complete data life cycle DataFlow, Cloud Functions, Cloud Run services can be considered.
+- For Pub/Sub to BQ process; DataFlow, Cloud Functions, Cloud Run services can be considered.
 - This project can be adapted to different use cases by modifying ./models/scjema.json and scripts/getQueries.js files.
